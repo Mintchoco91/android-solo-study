@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         btn_test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                et_id.setText("버튼 클릭했음");
+                et_id.setText("버튼 클릭했음@@@");
             }
         });
 
