@@ -16,12 +16,6 @@
         android:textSize="20sp"
         android:text="textview 연습" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#B9293D83"
-        android:text="리니어 레이아웃은 orientation" />
-
     -->
     <EditText
         android:id="@+id/et_id"
@@ -30,10 +24,9 @@
         android:hint="아이디를 입력 하세요..."/>
 
     <Button
-        android:id="@+id/btn_test"
+        android:id="@+id/btn_move"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="버튼"/>
-
+        android:text="이동"/>
 
 </LinearLayout>
