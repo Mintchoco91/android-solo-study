@@ -1,41 +1,29 @@
 package com.example.test3;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.drawerlayout.widget.DrawerLayout;
+import android.os.Bundle;
+import android.view.View;
+import android.view.Menu;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.navigation.NavigationView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.Toast;
-
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import com.example.test3.databinding.ActivityNaviDrawerBinding;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
-import java.util.List;
+public class NaviDrawer extends AppCompatActivity {
 
-//안드로이드 앱 만들기 #7 (Intent 화면전환) - 쉽게 앱 만드는 방법 (현직 개발자 설명)
-public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityNaviDrawerBinding binding;
+private ActivityNaviDrawerBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityNaviDrawerBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+     binding = ActivityNaviDrawerBinding.inflate(getLayoutInflater());
+     setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarNaviDrawer.toolbar);
         binding.appBarNaviDrawer.fab.setOnClickListener(new View.OnClickListener() {
