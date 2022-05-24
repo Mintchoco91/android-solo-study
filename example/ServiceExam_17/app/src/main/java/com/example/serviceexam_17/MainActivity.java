@@ -32,7 +32,5 @@ public class MainActivity extends AppCompatActivity {
                 stopService(new Intent(getApplicationContext(), MusicService.class));
             }
         });
-
-
     }
 }
