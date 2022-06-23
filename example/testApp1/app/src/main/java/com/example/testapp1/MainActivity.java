@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private String jsonString, StrUserName, StrGender, StrAge, StrPhoneNumber;
     private EditText editUserName, editPhoneNumber;
-    private Button btnSave;
+    private Button btnSave, btnList;
     ArrayList<Tree> treeArrayList;      // 나무정보들을 저장할 ArrayList
 
     @Override
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnSave = (Button) findViewById(R.id.BtnSave);
+        btnList = (Button) findViewById(R.id.BtnList);
         editUserName = (EditText) findViewById(R.id.EditUserName);
         editPhoneNumber = (EditText)findViewById(R.id.EditPhoneNumber);
 
@@ -128,6 +130,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        btnList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent -> 외부 activity 선언
+                Intent intentList = new Intent(MainActivity.this, ListActivity.class);
+                startActivity(intentList);
+            }
+        });
 
         /* select시 참고할것. */
         //textView = (TextView) findViewById(R.id.textView);

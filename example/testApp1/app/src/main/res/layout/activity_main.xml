@@ -79,6 +79,12 @@
         android:hint="입력 해 주세요"
         android:ems="8" />
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
     <Button
         android:id="@+id/BtnSave"
         android:layout_width="wrap_content"
@@ -86,9 +92,18 @@
         android:text="저장"
         />
 
+        <Button
+            android:id="@+id/BtnList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="목록"
+            />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textView"
-        android:text="test txt"
+        android:text="데이터 로딩할 구간"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
