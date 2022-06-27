@@ -5,6 +5,8 @@
       <map>
         <entry key="..\:/Users/Kiwon/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_item.xml" value="0.1" />
         <entry key="..\:/study/android/example/testApp1/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/study/android/example/testApp1/app/src/main/res/layout/file_upload_activity.xml" value="0.175" />
+        <entry key="..\:/study/android/example/testApp1/app/src/main/res/layout/file_upload_list_activity.xml" value="0.1" />
         <entry key="..\:/study/android/example/testApp1/app/src/main/res/layout/list_activity.xml" value="0.22" />
       </map>
     </option>
