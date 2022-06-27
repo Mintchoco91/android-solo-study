@@ -79,6 +79,7 @@
         android:hint="입력 해 주세요"
         android:ems="8" />
 
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
@@ -93,10 +94,24 @@
         />
 
         <Button
+            android:id="@+id/BtnUpload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="파일 업로드"
+            />
+
+        <Button
+            android:id="@+id/BtnUploadList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="파일 업로드 목록"
+            />
+
+        <Button
             android:id="@+id/BtnList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="목록"
+            android:text="회원 목록"
             />
 
     </LinearLayout>
