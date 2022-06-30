@@ -2,6 +2,7 @@ package com.example.testapp1;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -30,9 +31,9 @@ import java.util.Date;
 
 public class FileUploadActivity extends Activity {
 
-    Button btChoose, btUpload;
+    Button btnBack, btnChoose, btnRegist;
     private ImageView ivPreview;
-
+    private String StrUserName, StrGender, StrAge, StrPhoneNumber;
     private static final String TAG = "MainActivity";
     private Uri filePath;
     private StorageReference storageRef;
@@ -40,13 +41,31 @@ public class FileUploadActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.file_upload_activity);
-        btChoose = (Button) findViewById(R.id.bt_choose);
-        btUpload = (Button) findViewById(R.id.bt_upload);
-        ivPreview = (ImageView) findViewById(R.id.iv_preview);
 
+        //main에서 전달 받은 데이터
+        Intent intentMain = getIntent();
+        StrUserName = intentMain.getStringExtra("StrUserName");
+        StrGender = intentMain.getStringExtra("StrGender");
+        StrAge = intentMain.getStringExtra("StrAge");
+        StrPhoneNumber = intentMain.getStringExtra("StrPhoneNumber");
+
+        btnBack = (Button) findViewById(R.id.file_upload_activity_btn_back);
+        btnChoose = (Button) findViewById(R.id.file_upload_activity_btn_choose);
+        btnRegist = (Button) findViewById(R.id.file_upload_activity_btn_regist);
+
+        ivPreview = (ImageView) findViewById(R.id.file_upload_activity_iv_preview);
         storageRef = FirebaseStorage.getInstance().getReference();
 
-        btChoose.setOnClickListener(new View.OnClickListener() {
+        //뒤로 가기
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        //이미지 선택
+        btnChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //이미지를 선택
@@ -57,11 +76,12 @@ public class FileUploadActivity extends Activity {
             }
         });
 
-        btUpload.setOnClickListener(new View.OnClickListener() {
+        //회원 등록(Firebase 이미지 업로드 -> DB회원 저장)
+        btnRegist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //업로드
-                uploadFile();
+                uploadFileAndRegistDB();
             }
         });
     }
@@ -85,7 +105,7 @@ public class FileUploadActivity extends Activity {
     }
 
     //upload the file
-    private void uploadFile() {
+    private void uploadFileAndRegistDB() {
         //업로드할 파일이 있으면 수행
         if (filePath != null) {
             //업로드 진행 Dialog 보이기
@@ -97,11 +117,11 @@ public class FileUploadActivity extends Activity {
             FirebaseFirestore storage = FirebaseFirestore.getInstance();
 
             //Unique한 파일명을 만들자.
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmmss");
             Date now = new Date();
-            String filename = formatter.format(now) + ".png";
+            String StrFileName = formatter.format(now) + ".png";
             //storage 주소와 폴더 파일명을 지정해 준다.
-            storageRef = storageRef.child("photos").child(filename);
+            storageRef = storageRef.child("photos").child(StrFileName);
 
             //업로드 시작
             storageRef.putFile(filePath)
@@ -110,7 +130,9 @@ public class FileUploadActivity extends Activity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
-                            Toast.makeText(getApplicationContext(), "업로드 완료!", Toast.LENGTH_SHORT).show();
+
+                            //DB Update
+                            userRegistDB(StrFileName);
                         }
                     })
                     //실패시
@@ -134,5 +156,23 @@ public class FileUploadActivity extends Activity {
         } else {
             Toast.makeText(getApplicationContext(), "파일을 먼저 선택하세요.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void userRegistDB(String StrFileName){
+        String url = "https://androidserver-kw2.herokuapp.com/accountQuery.php/";
+        String mode = "insert";
+
+        // AsyncTask를 통해 HttpURLConnection 수행.
+        // 예를들어 로그인관련 POST 요청을한다.
+        Context context = getApplicationContext();
+        InsertLoginTask task = new InsertLoginTask(context);
+
+        task.execute(url, "mode",mode
+                , "userName",StrUserName
+                , "gender",StrGender
+                , "age",StrAge
+                , "phoneNumber",StrPhoneNumber
+                , "fileName",StrFileName
+        );
     }
 }
