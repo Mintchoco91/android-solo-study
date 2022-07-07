@@ -4,10 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Kiwon/AppData/Local/Android/Sdk/platforms/android-31/data/res/layout/simple_spinner_item.xml" value="0.1" />
+        <entry key="..\:/study/android/example/testApp1/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/study/android/example/testApp1/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/study/android/example/testApp1/app/src/main/res/layout/file_upload_activity.xml" value="0.175" />
         <entry key="..\:/study/android/example/testApp1/app/src/main/res/layout/file_upload_list_activity.xml" value="0.1" />
         <entry key="..\:/study/android/example/testApp1/app/src/main/res/layout/list_activity.xml" value="0.22" />
+        <entry key="..\:/study/android/example/testApp1/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>
     </option>
   </component>

@@ -38,7 +38,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
-    private String jsonString, StrUserName, StrGender, StrAge, StrPhoneNumber;
+    private String jsonString, strUserName, strGender, strAge, strPhoneNumber;
     private EditText etUserName, etPhoneNumber;
     private Button btnSave, btnList, btnUploadList;
     ArrayList<Tree> treeArrayList;      // 나무정보들을 저장할 ArrayList
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         btnGenderMan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StrGender = "남";
+                strGender = "남";
                 btnGenderMan.setBackgroundColor(Color.LTGRAY);
                 btnGenderWoman.setBackgroundColor(Color.WHITE);
             }
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         btnGenderWoman.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StrGender = "여";
+                strGender = "여";
                 btnGenderMan.setBackgroundColor(Color.WHITE);
                 btnGenderWoman.setBackgroundColor(Color.LTGRAY);
             }
@@ -91,26 +91,26 @@ public class MainActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StrUserName = String.valueOf(etUserName.getText()).trim();
-                StrAge = spinnerAge.getSelectedItem().toString();
-                StrPhoneNumber = String.valueOf(etPhoneNumber.getText()).trim();
+                strUserName = String.valueOf(etUserName.getText()).trim();
+                strAge = spinnerAge.getSelectedItem().toString();
+                strPhoneNumber = String.valueOf(etPhoneNumber.getText()).trim();
 
-                if(StrUserName.length() == 0){
+                if(strUserName.length() == 0){
                     Toast.makeText(MainActivity.this, "이름을 입력하세요.", Toast.LENGTH_SHORT).show();
                     etUserName.requestFocus();
                     return;
                 }
-                if(StrGender == null){
+                if(strGender == null){
                     Toast.makeText(MainActivity.this, "성별을 선택하세요.", Toast.LENGTH_SHORT).show();
                     btnGenderMan.requestFocus();
                     return;
                 }
-                if(StrAge.equals("선택")){
+                if(strAge.equals("선택")){
                     Toast.makeText(MainActivity.this, "나이를 선택하세요.", Toast.LENGTH_SHORT).show();
                     spinnerAge.requestFocus();
                     return;
                 }
-                if(StrPhoneNumber.length() == 0){
+                if(strPhoneNumber.length() == 0){
                     Toast.makeText(MainActivity.this, "핸드폰 번호를 입력하세요.", Toast.LENGTH_SHORT).show();
                     etPhoneNumber.requestFocus();
                     return;
@@ -118,10 +118,10 @@ public class MainActivity extends AppCompatActivity {
 
                 //다음 단계로 (이미지 업로드)
                 Intent intentUpload = new Intent(MainActivity.this, FileUploadActivity.class);
-                intentUpload.putExtra("StrUserName",StrUserName);
-                intentUpload.putExtra("StrGender",StrGender);
-                intentUpload.putExtra("StrAge",StrAge);
-                intentUpload.putExtra("StrPhoneNumber",StrPhoneNumber);
+                intentUpload.putExtra("strUserName",strUserName);
+                intentUpload.putExtra("strGender",strGender);
+                intentUpload.putExtra("strAge",strAge);
+                intentUpload.putExtra("strPhoneNumber",strPhoneNumber);
 
                 startActivity(intentUpload);
             }
