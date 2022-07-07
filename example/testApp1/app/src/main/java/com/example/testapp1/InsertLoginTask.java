@@ -63,6 +63,22 @@ public class InsertLoginTask extends AsyncTask<String, Void, String> {
 
         String key6 = (String) params[11];
         String value6 = (String) params[12];
+
+        String key7 = (String) params[13];
+        String value7 = (String) params[14];
+
+        String key8 = (String) params[15];
+        String value8 = (String) params[16];
+
+        String key9 = (String) params[17];
+        String value9 = (String) params[18];
+
+        String key10 = (String) params[19];
+        String value10 = (String) params[20];
+
+        String key11 = (String) params[21];
+        String value11 = (String) params[22];
+
         // HTTP 메시지 본문에 포함되어 전송되기 때문에 따로 데이터를 준비해야 합니다.
         // 전송할 데이터는 “이름=값” 형식이며 여러 개를 보내야 할 경우에는 항목 사이에 &를 추가합니다.
         // 여기에 적어준 이름을 나중에 PHP에서 사용하여 값을 얻게 됩니다.
@@ -74,7 +90,12 @@ public class InsertLoginTask extends AsyncTask<String, Void, String> {
                 + "&" + key3 + "=" + value3
                 + "&" + key4 + "=" + value4
                 + "&" + key5 + "=" + value5
-                + "&" + key6 + "=" + value6;
+                + "&" + key6 + "=" + value6
+                + "&" + key7 + "=" + value7
+                + "&" + key8 + "=" + value8
+                + "&" + key9 + "=" + value9
+                + "&" + key10 + "=" + value10
+                + "&" + key11 + "=" + value11;
 
         //String postParameters = "mode=insert&userName=이름&gender=남&age=29&phoneNumber=01047353592";
 
