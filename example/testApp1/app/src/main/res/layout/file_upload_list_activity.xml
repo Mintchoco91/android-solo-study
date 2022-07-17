@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/maskImageLayout"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
     
         <TextView
             android:layout_width="wrap_content"
@@ -28,8 +29,34 @@
             android:id="@+id/bt_directory_image_load"/>
     
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:id="@+id/file_upload_list_activity_iv_area" />
+
+        <TextView
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:id="@+id/img_test"/>
+            android:id="@+id/file_upload_list_activity_tv_name"
+            android:text="이름 : "/>
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/file_upload_list_activity_tv_gender"
+            android:text="성별 : "/>
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/file_upload_list_activity_tv_age"
+            android:text="나이 : "/>
+
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/file_upload_list_activity_tv_phone_number"
+            android:text="핸드폰 번호 : "/>
+
     </LinearLayout>
 </ScrollView>
