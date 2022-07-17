@@ -279,7 +279,7 @@ public class FileUploadActivity extends Activity {
         Context context = getApplicationContext();
         InsertLoginTaskRxjava task = new InsertLoginTaskRxjava(context);
 
-        task.sampleMethod(url, "mode",mode
+        task.backgroundTask(url, "mode",mode
                 , "userName",strUserName
                 , "gender",strGender
                 , "age",strAge
