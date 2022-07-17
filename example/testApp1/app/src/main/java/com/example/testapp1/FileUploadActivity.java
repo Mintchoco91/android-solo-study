@@ -277,6 +277,22 @@ public class FileUploadActivity extends Activity {
         // AsyncTask를 통해 HttpURLConnection 수행.
         // 예를들어 로그인관련 POST 요청을한다.
         Context context = getApplicationContext();
+        InsertLoginTaskRxjava task = new InsertLoginTaskRxjava(context);
+
+        task.sampleMethod(url, "mode",mode
+                , "userName",strUserName
+                , "gender",strGender
+                , "age",strAge
+                , "phoneNumber",strPhoneNumber
+                , "fileName0",insertFileNames[0]
+                , "fileName1",insertFileNames[1]
+                , "fileName2",insertFileNames[2]
+                , "fileName3",insertFileNames[3]
+                , "fileName4",insertFileNames[4]
+                , "fileName5",insertFileNames[5]
+        );
+
+        /*
         InsertLoginTask task = new InsertLoginTask(context);
 
         task.execute(url, "mode",mode
@@ -291,5 +307,7 @@ public class FileUploadActivity extends Activity {
                 , "fileName4",insertFileNames[4]
                 , "fileName5",insertFileNames[5]
         );
+
+         */
     }
 }

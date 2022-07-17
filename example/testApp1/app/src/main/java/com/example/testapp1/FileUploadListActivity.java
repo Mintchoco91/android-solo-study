@@ -24,9 +24,9 @@ import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
 public class FileUploadListActivity extends Activity {
-
-    private ImageView img_test;
+    private ImageView ivArea;
     private Button btImageLoad, btDirectoryImageLoad;
+    private TextView tvName, tvGender, tvAge, tvPhoneNumber;
 
     // 이미지 폴더 경로 참조
     private StorageReference storageRef;
@@ -36,9 +36,15 @@ public class FileUploadListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.file_upload_list_activity);
 
-        img_test = (ImageView) findViewById(R.id.img_test);
+        ivArea = (ImageView) findViewById(R.id.file_upload_list_activity_iv_area);
         btImageLoad = (Button) findViewById(R.id.bt_image_load);
         btDirectoryImageLoad = (Button) findViewById(R.id.bt_directory_image_load);
+
+        tvName = (TextView) findViewById(R.id.file_upload_list_activity_tv_name);
+        tvGender = (TextView) findViewById(R.id.file_upload_list_activity_tv_gender);
+        tvAge = (TextView) findViewById(R.id.file_upload_list_activity_tv_age);
+        tvPhoneNumber = (TextView) findViewById(R.id.file_upload_list_activity_tv_phone_number);
+
         storageRef = FirebaseStorage.getInstance().getReference();
 
         btImageLoad.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +70,7 @@ public class FileUploadListActivity extends Activity {
             public void onSuccess(Uri uri) {
                 Glide.with(getApplicationContext())
                         .load(uri)
-                        .into(img_test);
+                        .into(ivArea);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
