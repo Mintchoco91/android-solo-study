@@ -14,6 +14,7 @@ import java.net.URL;
 
 /**
  * AsyncTask 별도 클래스로 분리함
+ * 현재 사용안하는 소스이지만 혹시 몰라서 냅둠.
  */
 public class InsertLoginTask extends AsyncTask<String, Void, String> {
 
