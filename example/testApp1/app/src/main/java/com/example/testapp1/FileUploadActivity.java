@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,8 +16,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.BitmapImageDecoderResourceDecoder;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,15 +23,20 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.okhttp.RequestBody;
 
 import java.io.IOException;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import okhttp3.MultipartBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FileUploadActivity extends Activity {
 
@@ -47,6 +49,7 @@ public class FileUploadActivity extends Activity {
 
     private ImageView ivUserPicture0, ivUserPicture1, ivUserPicture2, ivUserPicture3, ivUserPicture4, ivUserPicture5;
 
+    Call<TaskDTO.OutputDTO> call;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -256,7 +259,7 @@ public class FileUploadActivity extends Activity {
     }
 
     private void userRegistDB(String[] strFileNames){
-        String url = "https://androidserver-kw2.herokuapp.com/accountQuery.php/";
+        String url = "https://androidserver-kw2.herokuapp.com/";
         String mode = "insert";
 
         //빈 Array를 제거하기 위해 list로 변경
@@ -277,8 +280,53 @@ public class FileUploadActivity extends Activity {
         // AsyncTask를 통해 HttpURLConnection 수행.
         // 예를들어 로그인관련 POST 요청을한다.
         Context context = getApplicationContext();
-        InsertLoginTaskRxjava task = new InsertLoginTaskRxjava(context);
 
+        /*
+        TaskDTO.InputDTO inputDTO = new TaskDTO.InputDTO();
+        inputDTO.setMode("insert");
+        inputDTO.setUserName(strUserName);
+        inputDTO.setGender(strGender);
+        inputDTO.setAge(strAge);
+        inputDTO.setPhoneNumber(strPhoneNumber);
+        inputDTO.setFileName0(insertFileNames[0]);
+        inputDTO.setFileName1(insertFileNames[1]);
+        inputDTO.setFileName2(insertFileNames[2]);
+        inputDTO.setFileName3(insertFileNames[3]);
+        inputDTO.setFileName4(insertFileNames[4]);
+        inputDTO.setFileName5(insertFileNames[5]);
+        call = Retrofit_client.getApiService().registDB(inputDTO);
+*/
+        /* 이건 됨 */
+
+        call = Retrofit_client.getApiService().registDB(
+                "insert"
+                ,strUserName
+                ,strGender
+                ,strAge
+                ,strPhoneNumber
+                ,insertFileNames[0]
+                ,insertFileNames[1]
+                ,insertFileNames[2]
+                ,insertFileNames[3]
+                ,insertFileNames[4]
+                ,insertFileNames[5]);
+
+        call.enqueue(new Callback<TaskDTO.OutputDTO>(){
+            //콜백 받는 부분
+            @Override
+            public void onResponse(Call<TaskDTO.OutputDTO> call, Response<TaskDTO.OutputDTO> response) {
+                TaskDTO.OutputDTO result = response.body();
+                Toast.makeText(context, "등록 성공", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<TaskDTO.OutputDTO> call, Throwable t) {
+                Toast.makeText(context, "등록 실패", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        /*
+        InsertLoginTaskRxjava task = new InsertLoginTaskRxjava(context);
         task.backgroundTask(url, "mode",mode
                 , "userName",strUserName
                 , "gender",strGender
@@ -290,24 +338,6 @@ public class FileUploadActivity extends Activity {
                 , "fileName3",insertFileNames[3]
                 , "fileName4",insertFileNames[4]
                 , "fileName5",insertFileNames[5]
-        );
-
-        /*
-        InsertLoginTask task = new InsertLoginTask(context);
-
-        task.execute(url, "mode",mode
-                , "userName",strUserName
-                , "gender",strGender
-                , "age",strAge
-                , "phoneNumber",strPhoneNumber
-                , "fileName0",insertFileNames[0]
-                , "fileName1",insertFileNames[1]
-                , "fileName2",insertFileNames[2]
-                , "fileName3",insertFileNames[3]
-                , "fileName4",insertFileNames[4]
-                , "fileName5",insertFileNames[5]
-        );
-
-         */
+        );*/
     }
 }
