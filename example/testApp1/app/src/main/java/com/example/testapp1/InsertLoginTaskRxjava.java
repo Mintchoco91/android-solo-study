@@ -25,11 +25,11 @@ public class InsertLoginTaskRxjava {
         this.context = context;
     }
 
-    private void resultPost(TaskDTO taskDTO){
+    private void resultPost(TaskDTO.OutputDTO outputDTO){
         //Insert 일경우
-        if(taskDTO.getMode().equals(TaskDTO.modeType.INSERT)) {
-            if (taskDTO.getResult().equals("")) {
-                Toast.makeText(context, "등록 실패" + taskDTO.getResult(), Toast.LENGTH_LONG).show();
+        if(outputDTO.getMode().equals(TaskDTO.OutputDTO.modeType.INSERT)) {
+            if (outputDTO.getResult().equals("")) {
+                Toast.makeText(context, "등록 실패" + outputDTO.getResult(), Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(context, "등록 성공", Toast.LENGTH_LONG).show();
             }
@@ -41,15 +41,15 @@ public class InsertLoginTaskRxjava {
         //onPreExecute(task 시작 전 실행될 코드 여기에 작성)
         backgroundTask = Observable.fromCallable(() -> {
             String result = null;
-            TaskDTO taskDTO = new TaskDTO();
+            TaskDTO.OutputDTO outputDTO = new TaskDTO.OutputDTO();
             //doInBackground(task에서 실행할 코드 여기에 작성)
             //params[2] = mode
             if(params[2].equals("insert")){
                 result = insertFunc(params);
-                taskDTO.setResult(result);
-                taskDTO.setMode(TaskDTO.modeType.INSERT);
+                outputDTO.setResult(result);
+                outputDTO.setMode(TaskDTO.OutputDTO.modeType.INSERT);
             }
-            return taskDTO;
+            return outputDTO;
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> resultPost(result));
     }
