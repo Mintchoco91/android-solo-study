@@ -23,7 +23,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.okhttp.RequestBody;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -33,7 +35,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,7 +50,6 @@ public class FileUploadActivity extends Activity {
 
     private ImageView ivUserPicture0, ivUserPicture1, ivUserPicture2, ivUserPicture3, ivUserPicture4, ivUserPicture5;
 
-    Call<TaskDTO.OutputDTO> call;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -281,24 +281,8 @@ public class FileUploadActivity extends Activity {
         // 예를들어 로그인관련 POST 요청을한다.
         Context context = getApplicationContext();
 
-        /*
-        TaskDTO.InputDTO inputDTO = new TaskDTO.InputDTO();
-        inputDTO.setMode("insert");
-        inputDTO.setUserName(strUserName);
-        inputDTO.setGender(strGender);
-        inputDTO.setAge(strAge);
-        inputDTO.setPhoneNumber(strPhoneNumber);
-        inputDTO.setFileName0(insertFileNames[0]);
-        inputDTO.setFileName1(insertFileNames[1]);
-        inputDTO.setFileName2(insertFileNames[2]);
-        inputDTO.setFileName3(insertFileNames[3]);
-        inputDTO.setFileName4(insertFileNames[4]);
-        inputDTO.setFileName5(insertFileNames[5]);
-        call = Retrofit_client.getApiService().registDB(inputDTO);
-*/
-        /* 이건 됨 */
-
-        call = Retrofit_client.getApiService().registDB(
+        //Insert
+        Call<String> call = Retrofit_client.getApiService().registDB(
                 "insert"
                 ,strUserName
                 ,strGender
@@ -311,33 +295,27 @@ public class FileUploadActivity extends Activity {
                 ,insertFileNames[4]
                 ,insertFileNames[5]);
 
-        call.enqueue(new Callback<TaskDTO.OutputDTO>(){
+        call.enqueue(new Callback<String>(){
             //콜백 받는 부분
             @Override
-            public void onResponse(Call<TaskDTO.OutputDTO> call, Response<TaskDTO.OutputDTO> response) {
-                TaskDTO.OutputDTO result = response.body();
-                Toast.makeText(context, "등록 성공", Toast.LENGTH_LONG).show();
+            public void onResponse(Call<String> call, Response<String> response) {
+                String jsonResponse = response.body();
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonResponse);
+                    if (jsonObject.optString("status").equals("true")){
+                        Toast.makeText(context, "등록 성공", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(context, "등록 실패 : " + jsonObject.optString("query"), Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(context, "등록 실패 (catch) : " + e.getMessage().toString(), Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<TaskDTO.OutputDTO> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 Toast.makeText(context, "등록 실패", Toast.LENGTH_LONG).show();
             }
         });
-
-        /*
-        InsertLoginTaskRxjava task = new InsertLoginTaskRxjava(context);
-        task.backgroundTask(url, "mode",mode
-                , "userName",strUserName
-                , "gender",strGender
-                , "age",strAge
-                , "phoneNumber",strPhoneNumber
-                , "fileName0",insertFileNames[0]
-                , "fileName1",insertFileNames[1]
-                , "fileName2",insertFileNames[2]
-                , "fileName3",insertFileNames[3]
-                , "fileName4",insertFileNames[4]
-                , "fileName5",insertFileNames[5]
-        );*/
     }
 }

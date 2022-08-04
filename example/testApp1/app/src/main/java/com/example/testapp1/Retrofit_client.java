@@ -19,6 +19,7 @@ public class Retrofit_client {
         Gson gson = new GsonBuilder().setLenient().create();
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }

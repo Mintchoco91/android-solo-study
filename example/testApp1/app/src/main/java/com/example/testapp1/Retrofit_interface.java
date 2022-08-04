@@ -9,13 +9,9 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 
 public interface Retrofit_interface {
-    //@POST("/accountQuery.php/")
-    //Call<TaskDTO.OutputDTO> registDB(@Body TaskDTO.InputDTO inputDTO);
-    /* 이건 됨 */
-
     @POST("/accountQuery.php/")
     @FormUrlEncoded
-    Call<TaskDTO.OutputDTO> registDB(
+    Call<String> registDB(
             @Field("mode") String mode,
             @Field("userName") String userName,
             @Field("gender") String gender,
