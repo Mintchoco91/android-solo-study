@@ -314,7 +314,7 @@ public class FileUploadActivity extends Activity {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
-                Toast.makeText(context, "등록 실패", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "등록 실패 (onFailure)", Toast.LENGTH_LONG).show();
             }
         });
     }
